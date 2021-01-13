@@ -3,6 +3,7 @@ package me.specnr.manhuntkoth.helpers;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 public class BroadcastHelper {
@@ -17,7 +18,7 @@ public class BroadcastHelper {
         if (HunterHelper.Runners.size() > 0) {
             ArrayList<String> names = new ArrayList<>();
             for (UUID runner : HunterHelper.Runners) {
-                names.add(Bukkit.getPlayer(runner).getName());
+                names.add(Objects.requireNonNull(Bukkit.getPlayer(runner)).getName());
             }
             msg = "Runners: §b§l§o" + String.join("§r, §b§l§o", names);
         }

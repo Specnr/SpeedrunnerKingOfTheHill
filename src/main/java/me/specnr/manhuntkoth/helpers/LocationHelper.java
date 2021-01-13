@@ -3,6 +3,7 @@ package me.specnr.manhuntkoth.helpers;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -19,24 +20,21 @@ public class LocationHelper {
      * @param l The location to update to
      */
     public static void updateCompassWithDim (Player p, Location l) {
-        switch (p.getWorld().getEnvironment()) {
-            case NORMAL:
-                p.setCompassTarget(l);
-            default:
-                PlayerInventory inv = p.getInventory();
-                ItemStack compass = null;
-                for (int j = 0; j < inv.getSize(); j++) {
-                    ItemStack stack = inv.getItem(j);
-                    if (stack != null && stack.getType() == Material.COMPASS) {
-                        compass = stack;
-                        break;
-                    }
-                }
-                CompassMeta meta = (CompassMeta) compass.getItemMeta();
-                meta.setLodestone(l);
-                meta.setLodestoneTracked(false);
-                compass.setItemMeta(meta);
+        PlayerInventory inv = p.getInventory();
+        ItemStack compass = null;
+        for (int j = 0; j < inv.getSize(); j++) {
+            ItemStack stack = inv.getItem(j);
+            if (stack != null && stack.getType() == Material.COMPASS) {
+                compass = stack;
+                break;
+            }
         }
+        assert compass != null;
+        CompassMeta meta = (CompassMeta) compass.getItemMeta();
+        assert meta != null;
+        meta.setLodestone(l);
+        meta.setLodestoneTracked(false);
+        compass.setItemMeta(meta);
     }
 
     public static void updateHunterCompass (Player p) {
@@ -44,6 +42,7 @@ public class LocationHelper {
         ArrayList<Player> sameDimRunners = new ArrayList<>();
         for (UUID runnerId : HunterHelper.Runners) {
             Player runner = Bukkit.getPlayer(runnerId);
+            assert runner != null;
             if (runner.getWorld().getEnvironment() == p.getWorld().getEnvironment()) {
                 sameDimRunners.add(runner);
             }

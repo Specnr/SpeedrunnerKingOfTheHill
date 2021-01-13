@@ -8,13 +8,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.inventory.ItemStack;
+
+import java.util.Objects;
 
 public class OnHunterInteraction implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent evt){
         Player player = evt.getPlayer();
-        if(player.getEquipment().getItemInMainHand().getType() == Material.COMPASS){
+        if(Objects.requireNonNull(player.getEquipment()).getItemInMainHand().getType() == Material.COMPASS){
             LocationHelper.updateHunterCompass(player);
         }
     }
