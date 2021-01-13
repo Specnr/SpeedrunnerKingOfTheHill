@@ -8,6 +8,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
+import static org.bukkit.World.Environment.THE_END;
+
 public class HunterHelper {
     public static Set<UUID> Runners = new HashSet<>();
     public static Location LatestRunnerPortal = null;
@@ -42,19 +44,28 @@ public class HunterHelper {
 
     /**
      * Picks a random hunter to become the runner.
+     * Prioritize players in The End
      * @return Player to be the runner
      */
     public static UUID getRandomRunner() {
         ArrayList<UUID> options = new ArrayList<>();
+        ArrayList<UUID> endOptions = new ArrayList<>();
         Random r = new Random();
         // Add all the non-runners to a list
         for (Player p : Bukkit.getOnlinePlayers()) {
             UUID curr = p.getUniqueId();
             if (!Runners.contains(curr)) {
+                if (p.getWorld().getEnvironment() == THE_END) {
+                    endOptions.add(curr);
+                }
                 options.add(curr);
             }
         }
-        // Pick a random one
+        // Prioritize players stuck in The End
+        // This could be configurable, but makes the game much more smooth overall
+        if (endOptions.size() > 0) {
+            return endOptions.get(r.nextInt(options.size()));
+        }
         return options.get(r.nextInt(options.size()));
     }
 }
