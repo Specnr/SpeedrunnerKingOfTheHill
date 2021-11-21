@@ -13,6 +13,7 @@ import static org.bukkit.World.Environment.THE_END;
 public class HunterHelper {
     public static Set<UUID> Runners = new HashSet<>();
     public static Location LatestRunnerPortal = null;
+    public static Location LatestRunnerEndPortal = null;
 
     public static void giveCompass(Player p) {
         p.getInventory().addItem(new ItemStack(Material.COMPASS, 1));

@@ -1,7 +1,7 @@
 name: ManhuntKotH
 version: ${project.version}
 main: me.specnr.manhuntkoth.ManhuntKotH
-api-version: 1.16
+api-version: 1.17
 authors: [ Specnr ]
 description: Minecraft Manhunt x King of the Hill
 website: https://www.youtube.com/channel/UC29rrADVV0zeMX8gR8xtisw

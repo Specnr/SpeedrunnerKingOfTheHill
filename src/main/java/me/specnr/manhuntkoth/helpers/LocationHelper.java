@@ -48,8 +48,12 @@ public class LocationHelper {
             }
         }
         if (sameDimRunners.size() == 0) {
+            System.out.println("Runner is in different dimension than" + p.getName());
             // Set newLocation to latest portal
-            if (HunterHelper.LatestRunnerPortal != null) {
+            if (p.getWorld().getEnvironment() != World.Environment.NETHER && HunterHelper.LatestRunnerEndPortal != null) {
+                newLocation = HunterHelper.LatestRunnerEndPortal;
+            }
+            else if (HunterHelper.LatestRunnerPortal != null) {
                 newLocation = HunterHelper.LatestRunnerPortal;
             } else {
                 p.sendMessage(BroadcastHelper.BroadcastPrefix + " Portal location was lost");
